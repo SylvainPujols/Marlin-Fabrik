@@ -662,7 +662,7 @@ void process_commands()
       if(Stopped == false) {
         get_coordinates(); // For X Y Z E F        
         prepare_move();
-        SERIAL_ECHOLNPGM("Z_move_comp");
+        SERIAL_ECHOLNPGM("Z_move_comp_maggle");
         st_synchronize();
         //ClearToSend();
         return;
