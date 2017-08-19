@@ -1,4 +1,4 @@
-/* -*- c++ -*- */
+/* -*- c++++ -*- */
 
 /*
     Reprap firmware based on Sprinter and grbl.
