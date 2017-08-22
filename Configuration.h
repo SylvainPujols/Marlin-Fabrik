@@ -74,8 +74,6 @@
 #define MOTHERBOARD 33
 #endif
 
-// Define this to set a custom name for your generic Mendel,
-// #define CUSTOM_MENDEL_NAME "This Mendel"
 
 // This defines the number of extruders
 #define EXTRUDERS 1
@@ -219,12 +217,6 @@
 
 
 
-//this prevents dangerous Extruder moves, i.e. if the temperature is under the limit
-//can be software-disabled for whatever purposes by
-//#define PREVENT_DANGEROUS_EXTRUDE
-//if PREVENT_DANGEROUS_EXTRUDE is on, you can still disable (uncomment) very long bits of extrusion separately.
-//#define PREVENT_LENGTHY_EXTRUDE
-
 #define EXTRUDE_MINTEMP 0
 #define EXTRUDE_MAXLENGTH (X_MAX_LENGTH+Y_MAX_LENGTH) //prevent extrusion of very large distances.
 
@@ -296,31 +288,6 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 
 #define min_software_endstops true // If true, axis won't move to coordinates less than HOME_POS.
 #define max_software_endstops true  // If true, axis won't move to coordinates greater than the defined lengths below.
-
-//============================= Bed Auto Leveling ===========================
-
-  // these are the positions on the bed to do the probing
-  #define LEFT_PROBE_BED_POSITION 15
-  #define RIGHT_PROBE_BED_POSITION 170
-  #define BACK_PROBE_BED_POSITION 180
-  #define FRONT_PROBE_BED_POSITION 20
-
-  // these are the offsets to the prob relative to the extruder tip (Hotend - Probe)
-  #define X_PROBE_OFFSET_FROM_EXTRUDER -25
-  #define Y_PROBE_OFFSET_FROM_EXTRUDER -29
-  #define Z_PROBE_OFFSET_FROM_EXTRUDER -12.35
-  
-  #define XY_TRAVEL_SPEED 8000         // X and Y axis travel speed between probes, in mm/min
-  
-  #define Z_RAISE_BEFORE_PROBING 15    //How much the extruder will be raised before traveling to the first probing point.
-  #define Z_RAISE_BETWEEN_PROBINGS 5  //How much the extruder will be raised when traveling from between next probing points
-
-
-  //If defined, the Probe servo will be turned on only during movement and then turned off to avoid jerk
-  //The value is the delay to turn the servo off after powered on - depends on the servo speed; 300ms is good value, but you can try lower it.
-  // You MUST HAVE the SERVO_ENDSTOPS defined to use here a value higher than zero otherwise your code will not compile.
-
-//  #define PROBE_SERVO_DEACTIVATION_DELAY 300  
   
 
 // Travel limits after homing
@@ -421,7 +388,19 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // SF send wrong arc g-codes when using Arc Point as fillet procedure
 //#define SF_ARC_FIX
 
-
+//Force sensor for mUve3D CDMA printers, which allows to detect strenght applyed on the last layer in order to adjust the servo's speed
+#define FORCE_SENSOR
+#ifdef FORCE_SENSOR
+  #define FORCE_PIN PINA0 //Or only "A5"
+  #define NUMFORCE 3 //Number of force levels, (strongest strenght) A > B > C (lowest strenght), each matching a speed. 
+  //Levels are set verticaly, along the Z_AXIS.
+  #define FORCEA 1000
+  #define FORCEB 100
+  #define FORCEC 10
+  #define SPEED_COEFFA 1
+  #define SPEED_COEFFB 2
+  #define SPEED_COEFFC 3
+#endif 
 /*********************************************************************\
 * R/C SERVO support
 * Sponsored by TrinityLabs, Reworked by codexmas
@@ -452,4 +431,3 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 #endif
 
 #endif //__CONFIGURATION_H
-
