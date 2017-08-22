@@ -158,10 +158,7 @@ void FlushSerialRequestResend();
 void ClearToSend();
 
 void get_coordinates();
-#ifdef DELTA
-void calculate_delta(float cartesian[3]);
-extern float delta[3];
-#endif
+
 void prepare_move();
 void kill();
 void Stop();
@@ -170,8 +167,12 @@ bool IsStopped();
 
 void enquecommand(const char *cmd); //put an ascii command at the end of the current buffer.
 void enquecommand_P(const char *cmd); //put an ascii command at the end of the current buffer, read from flash
-void prepare_arc_move(char isclockwise);
+
 void clamp_to_software_endstops(float target[3]);
+
+#ifdef FORCE_SENSOR
+int read_force();
+#endif
 
 #ifdef FAST_PWM_FAN
 void setPwmFrequency(uint8_t pin, int val);
@@ -192,21 +193,12 @@ extern float add_homeing[3];
 extern float min_pos[3];
 extern float max_pos[3];
 extern int fanSpeed;
-#ifdef BARICUDA
-extern int ValvePressure;
-extern int EtoPPressure;
-#endif
+
 
 #ifdef FAN_SOFT_PWM
 extern unsigned char fanSpeedSoftPwm;
 #endif
 
-#ifdef FWRETRACT
-extern bool autoretract_enabled;
-extern bool retracted;
-extern float retract_length, retract_feedrate, retract_zlift;
-extern float retract_recover_length, retract_recover_feedrate;
-#endif
 
 extern unsigned long starttime;
 extern unsigned long stoptime;
